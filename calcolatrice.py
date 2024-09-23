@@ -4,13 +4,16 @@ b = int(input('inserisci secondo operando\n'))
 
 if op == '+':
     print(a,op,b,'=',a+b)
-elif op == '-':
+if op == '-':
     print(a,op,b,'=',a-b) 
-elif op == '*':
+if op == '*':
     print(a,op,b,'=',a*b)
-elif op == '/':
+if op == '/':
     print(a,op,b,'=',a/b)
-else:
+
+op_non_ok = op != '+' and op != '-' and op != '*' and op != '/'
+
+if op_non_ok:
     print('operzione non corretta')
 
 
