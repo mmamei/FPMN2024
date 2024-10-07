@@ -1,1 +1,4 @@
-a = [1,2,3,4,5]
+
+a = list(range(10))
+a2 = list(reversed(a))
+print(a2)
