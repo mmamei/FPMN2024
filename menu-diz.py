@@ -22,10 +22,8 @@ Non usare le funzioni, usa solo le due liste indicate
 '''
 
 
-
 # Liste per memorizzare gli studenti e le loro medie
-studenti = []
-medie = []
+studenti_medie = {}
 
 while True:
     # Mostra il menu
@@ -42,43 +40,35 @@ while True:
     # Opzione 1: Inserisci studente
     if scelta == '1':
         nome = input("Inserisci nome e cognome dello studente: ")
-        studenti.append(nome)
-        medie.append(None)  # Aggiunge un valore vuoto per la media (sarà inserito successivamente)
-    
+        studenti_medie[nome] = None
+        
     # Opzione 2: Inserisci media voti studente
     elif scelta == '2':
         nome = input("Inserisci nome e cognome dello studente per aggiungere la media: ")
-        if nome in studenti:
-            media = float(input("Inserisci la media voti per",nome))
-            indice = studenti.index(nome)
-            medie[indice] = media
+        if nome in studenti_medie:
+            media = float(input("Inserisci la media voti"))
+            studenti_medie[nome] = media
         else:
             print("Studente non trovato!")
     
     # Opzione 3: Stampa tutto
     elif scelta == '3':
         print("\nElenco studenti e medie:")
-        for i in range(len(studenti)):
+        for n, m in studenti_medie.items():
             #media = medie[i] if medie[i] is not None else "Non assegnata"
             
-            if medie[i] is not None:
-                media = media[i]
+            if m is not None:
+                media = m
             else:
                 media = "Non assegnata"
 
-            print(f"{studenti[i]} - Media: {media}")
+            print(f"{n} - Media: {media}")
     
     # Opzione 4: Calcola media voti della classe
     elif scelta == '4':
-        media_totale = 0
-        conteggio_studenti = 0
-        for media in medie:
-            if media is not None:
-                media_totale += media
-                conteggio_studenti += 1
-        
-        if conteggio_studenti > 0:
-            media_classe = media_totale / conteggio_studenti
+        mediev = [m for m in studenti_medie.values() if m is not None]
+        if len(mediev) > 0:
+            media_classe = sum(mediev) / len(mediev)
             print(f"La media della classe è: {media_classe:.2f}")
         else:
             print("Non ci sono medie disponibili per calcolare la media della classe.")
