@@ -1,4 +1,7 @@
 
-a = list(range(10))
-a2 = list(reversed(a))
-print(a2)
+a = None
+print(a)
+if a is not None:
+    print(a)
+else:
+    print('valore none')

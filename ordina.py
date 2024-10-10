@@ -6,14 +6,16 @@
 # [1,    2,3]
 
 
-a = [2,3,1]
-imin = a.index(min(a))
-print(imin)
-#tmp = a[0]
-#a[0] = a[imin] 
-#a[imin] = tmp
+lista = [2,3,1,7,1,1,3]
+print(lista)
+for start in range(len(lista)):
+    a = lista[start:]
+    imin = a.index(min(a))
+    print(imin)
+    #tmp = a[0]
+    #a[0] = a[imin] 
+    #a[imin] = tmp
+    lista[0+start],lista[imin+start] = (lista[imin+start], lista[0+start])
 
-a[0],a[imin] = a[imin], a[0]
 
-
-print(a)
+    print(lista)
