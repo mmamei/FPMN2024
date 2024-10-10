@@ -1,7 +1,7 @@
+sv = {
+    'Marco Mamei':27,
+    'Roberta Rossetto':24
+}
 
-a = None
-print(a)
-if a is not None:
-    print(a)
-else:
-    print('valore none')
+sv['Marco Mamei'] = 30
+print(sv)
