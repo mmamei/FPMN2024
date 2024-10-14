@@ -12,10 +12,10 @@ Realizzare un programma in python che presenti all’utente il seguente menu:
 Gli studenti sono rappresentati da una lista di stringhe.
 Le medie degli studenti sono rappresentati da una lista di float.
 Il menu continua a chiedere operazioni, tramite commando input, all’utente finché l’utente non esegue l’operazione “5”.
-L’operazione 1 permette di inserire il nome e cognome dello studente.
-L’operazione 2 chiede il nome e il cognome di uno studente, quindi chiede il valore della media di quello studente.
-L’operazione 3 stampa tutti gli studenti e la loro media.
-L’operazione 4 stampa la media voti della classe.
+L'operazione 1 permette di inserire il nome e cognome dello studente.
+L'operazione 2 chiede il nome e il cognome di uno studente, quindi chiede il valore della media di quello studente.
+L'operazione 3 stampa tutti gli studenti e la loro media.
+L'operazione 4 stampa la media voti della classe.
 
 Non usare le funzioni, usa solo le due liste indicate
 
