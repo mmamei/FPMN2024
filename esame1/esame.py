@@ -21,6 +21,7 @@ messaggi = [
 ]
 
 # trovare la persona che scrive più messaggi
+
 '''
 persN = {
     'marco':1,
@@ -28,12 +29,24 @@ persN = {
     'robby':0
 }
 '''
-persN = {}
+
+# trovate tutte le persone
+persone = []
 for x in messaggi:
-    mittente = x['da']
-    print(mittente)
-    if mittente in persN:
-        persN[mittente] += 1
-    else:
-        persN[mittente] = 1 
+    persone.append(x['da'])
+    persone.append(x['a'])
+persone = set(persone)
+
+# inizializzo persN a zero
+persN = {}
+for p in persone:
+    persN[p] = 0
+
+# per ogni persona conto i messaggi
+for x in messaggi:
+    persN[x['da']] += 1
+
 print(persN)
+
+persMax = sorted(persN.items(), key=lambda kv:kv[1])[-1][0]
+print(persMax)
