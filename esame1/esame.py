@@ -50,3 +50,35 @@ print(persN)
 
 persMax = sorted(persN.items(), key=lambda kv:kv[1])[-1][0]
 print(persMax)
+
+print('---------------------------------')
+
+pers2pers = {} # associo ad ogni persona la lista di persone con cui comunica
+for p in persone:
+    pers2pers[p] = []
+for x in messaggi:
+    pers2pers[x['da']].append(x['a'])
+    pers2pers[x['a']].append(x['da'])
+
+for k,v in pers2pers.items():
+    print(k,'comunica con',len(set(v)),'persone')
+
+print('---------------------------------')
+
+pers2x = {}
+for p in persone:
+    pers2x[p] = {p:0 for p in persone}
+for x in messaggi:
+    pers2x[x['da']][x['a']] += 1
+#print(pers2x)
+
+sep = '\t\t'
+print('Da\\a', end=sep)
+for p in persone:
+    print(p,end=sep)
+print()
+for da in persone:
+    print(da,end=sep)
+    for a in persone:
+        print(pers2x[da][a], end=sep)
+    print()
