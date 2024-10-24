@@ -1,0 +1,23 @@
+# Dati di input
+data = "1,2,3;4,5,6;7,8,9;3;3;3;4,4;5,5;1,2,3,4"
+
+# Separare le matrici
+matrici = data.split(";")
+
+# Iniziare un indice per tracciare dove stampare il salto di riga
+indice = 0
+
+# Iterare sulle matrici
+for matrice in matrici:
+    # Separare gli elementi della matrice
+    elementi = matrice.split(",")
+    
+    # Stampare la riga della matrice
+    print(" ".join(elementi))
+    
+    # Incrementare l'indice
+    indice += 1
+    
+    # Se abbiamo stampato una matrice completa, stampare un salto di riga
+    if indice % 3 == 0:
+        print()

@@ -1,12 +1,12 @@
 
-a = {
-    'marco':[1,200,3,4],
-    'anna':[6],
-    'luca':[6]
-}
+x = None
+while x is None:
+    try:
+        x = int(input('inserisci numero'))
+    except:
+        pass
+print(x)
 
-b = sorted(a.items(), key=lambda x:sum(x[1])/len(x[1]), reverse=True)
-print(b)
 
 
 
