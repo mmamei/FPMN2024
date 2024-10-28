@@ -82,20 +82,28 @@ for x in messaggi:
     pers2x[x['da']][x['a']] += 1
 #print(pers2x)
 
+def print_tab(filep,s='',nspace=10,end=''):
+    s = str(s)
+    space=''
+    for i in range(nspace - len(s)):
+        space += ' '
+    filep.write(f'{s}{space}{end}')
+
+
 with open('esame1/tab.txt','w') as f:
     sep = '\t\t'
     print('Da\\a', end=sep)
-    f.write(f'Da\\a{sep}')
+    print_tab(f,'Da\\a')
     for p in persone:
         print(p,end=sep)
-        f.write(f'{p}{sep}')
+        print_tab(f,p)
     print()
-    f.write('\n')
+    print_tab(f,end='\n')
     for da in persone:
         print(da,end=sep)
-        f.write(f'{da}{sep}')
+        print_tab(f,da)
         for a in persone:
             print(pers2x[da][a], end=sep)
-            f.write(f'{pers2x[da][a]}{sep}')
+            print_tab(f,pers2x[da][a])
         print()
-        f.write('\n')
+        print_tab(f,end='\n')
