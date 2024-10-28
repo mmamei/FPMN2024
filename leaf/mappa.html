@@ -12,7 +12,7 @@
 <div id="mapid" style="width: 1200px; height: 800px;"></div>
 <script>
 
-	var map = L.map('mapid').setView({{center}}, 13);
+	var map = L.map('mapid').setView([44.63276,10.871231], 13);
 	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 	L.marker([51.5, -0.09]).addTo(map).bindPopup('Ciao.')
 	L.marker([52.5, -0.09]).addTo(map).bindPopup('Ciao.')
