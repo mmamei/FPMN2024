@@ -26,7 +26,6 @@ def write_file(file, testo):
         f.write(testo)
 
 
-
 data = read_loc_history('leaf/data.json')
 template = read_template()
 name, lat, lon = data[0].values()
