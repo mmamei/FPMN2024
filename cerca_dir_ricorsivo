@@ -1,0 +1,47 @@
+'''
+Scrivi un progrmma python che legge una stringa da input 
+e cerca in tutti i file presenti in una cartella e nelle 
+sue sottocartelle tutti i file che contengono la stringa inserita
+Usa una funzione ricorsiva
+'''
+
+import os
+
+def cerca_stringa(cartella, stringa):
+    risultati = []
+    
+    # Scorri tutti i file e le cartelle nella cartella corrente
+    for elemento in os.listdir(cartella):
+        percorso = os.path.join(cartella, elemento)
+        
+        # Se l'elemento è una cartella, chiama la funzione ricorsivamente
+        if os.path.isdir(percorso):
+            risultati.extend(cerca_stringa(percorso, stringa))
+        
+        # Se l'elemento è un file, controlla se contiene la stringa
+        elif os.path.isfile(percorso):
+            try:
+                with open(percorso, 'r', encoding='utf-8') as file:
+                    contenuto = file.read()
+                    if stringa in contenuto:
+                        risultati.append(percorso)
+            except (UnicodeDecodeError, PermissionError):
+                # Gestisce errori di lettura dei file non testuali o senza permessi
+                pass
+                
+    return risultati
+
+# Chiedi all'utente la stringa da cercare e la cartella di partenza
+stringa_da_cercare = input("Inserisci la stringa da cercare: ")
+cartella_di_partenza = input("Inserisci il percorso della cartella di partenza: ")
+
+# Esegui la ricerca
+risultati = cerca_stringa(cartella_di_partenza, stringa_da_cercare)
+
+# Mostra i risultati
+if risultati:
+    print("File che contengono la stringa cercata:")
+    for file in risultati:
+        print(file)
+else:
+    print("Nessun file trovato con la stringa inserita.")

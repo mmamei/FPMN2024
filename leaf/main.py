@@ -30,4 +30,19 @@ data = read_loc_history('leaf/data.json')
 template = read_template()
 name, lat, lon = data[0].values()
 mappa = template.replace('{{center}}',f'[{lat},{lon}]')
+
+# L.marker([51.5, -0.09]).addTo(map).bindPopup('Ciao.')
+placemark = []
+for p in data:
+    name, lat, lon = p.values()
+    name = name.replace('"','\'')
+    placemark.append(f'L.marker([{lat}, {lon}]).addTo(map).bindPopup("{name}")')
+placemark = '\n'.join(placemark)
+
+mappa = mappa.replace('{{placemark}}',placemark)
+
+
 write_file('leaf/mappa.html',mappa)
+
+
+
