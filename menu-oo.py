@@ -11,23 +11,24 @@ class Studente():
 
 class Aula():
     def __init__(self):
-        self.studenti = []
+        self.__studenti = {}
     def aggiungi(self,s):
-        self.studenti.append(s)
+        self.__studenti[s.nome] = s
     def cerca(self,nome):
-        for s in self.studenti:
-            if s.nome == nome:
-                return s
+        if nome in self.__studenti:
+            return self.__studenti[nome]
         return None
+    def lista(self):
+        return self.__studenti.values()
 
 class Menu():
     def __init__(self):
         self.aula = Aula()
     def stampa(self):
-        print("1. Inserisci Studente")
+        print("1. Inserisci studente")
         print("2. Inserisci voto studente")
         print("3. Stampa tutto")
-        print("4. Calcola media voti della classe")
+        print("4. Calcola media voti studente")
         print("5. Esci")
     def esegui(self):
         while(True):
@@ -43,7 +44,7 @@ class Menu():
                 v = int(input('Inserisci voto: '))
                 s.aggiungi_voto(v)
             if op == '3':
-                for s in self.aula.studenti:
+                for s in self.aula.lista():
                     print(s.stampa())
             if op == '4':
                 nome = input('Inserisci nome: ')
