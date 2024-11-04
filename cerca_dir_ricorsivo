@@ -16,7 +16,8 @@ def cerca_stringa(cartella, stringa):
         
         # Se l'elemento è una cartella, chiama la funzione ricorsivamente
         if os.path.isdir(percorso):
-            risultati.extend(cerca_stringa(percorso, stringa))
+            #risultati.extend(cerca_stringa(percorso, stringa))
+            risultati += cerca_stringa(percorso, stringa)
         
         # Se l'elemento è un file, controlla se contiene la stringa
         elif os.path.isfile(percorso):

@@ -1,7 +1,15 @@
-def fatt(n):
-    if n == 1:
-        return 1
-    else:
-        return n*fatt(n-1)
-    
-print(fatt(4))
+def wrap(f):
+    def newf(*pars):
+        print('decorazione')
+        f(*pars)
+    return newf
+
+#stampa = wrap(stampa)
+@wrap
+def stampa(nome, cognome):
+    print('ciao',nome,cognome)
+
+
+
+
+stampa('marco','mamei')
