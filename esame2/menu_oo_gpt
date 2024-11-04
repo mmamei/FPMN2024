@@ -1,0 +1,105 @@
+'''
+Realizzare un programma python che presenti all'utente 
+il seguente menu:
+1. Inserisci Studente
+2. Aggiungi voto a Studente 
+3. Stampa
+4. Calcola media voti Studente 
+5 .Esci 
+
+Gli studenti sono rappresentati da una classe Studente.
+L'intera classe di studenti è rappresentata dalle classe Aula
+Il menu e l'interazione con l'utente sono in una classe Menu
+'''
+
+class Studente:
+    def __init__(self, nome):
+        self.nome = nome
+        self.voti = []
+
+    def aggiungi_voto(self, voto):
+        self.voti.append(voto)
+
+    def calcola_media(self):
+        if not self.voti:
+            return 0
+        return sum(self.voti) / len(self.voti)
+
+    def __str__(self):
+        return f"{self.nome}, Voti: {self.voti}"
+
+
+class Aula:
+    def __init__(self):
+        self.studenti = {}
+
+    def inserisci_studente(self, nome):
+        if nome not in self.studenti:
+            self.studenti[nome] = Studente(nome)
+            print(f"Studente {nome} aggiunto con successo.")
+        else:
+            print("Studente già presente.")
+
+    def aggiungi_voto_a_studente(self, nome, voto):
+        if nome in self.studenti:
+            self.studenti[nome].aggiungi_voto(voto)
+            print(f"Voto {voto} aggiunto a {nome}.")
+        else:
+            print("Studente non trovato.")
+
+    def stampa_studenti(self):
+        if not self.studenti:
+            print("Nessuno studente presente.")
+        else:
+            for studente in self.studenti.values():
+                print(studente)
+
+    def calcola_media_studente(self, nome):
+        if nome in self.studenti:
+            return self.studenti[nome].calcola_media()
+        else:
+            print("Studente non trovato.")
+            return None
+
+
+class Menu:
+    def __init__(self):
+        self.aula = Aula()
+
+    def mostra_menu(self):
+        while True:
+            print("\nMenu:")
+            print("1. Inserisci Studente")
+            print("2. Aggiungi voto a Studente")
+            print("3. Stampa")
+            print("4. Calcola media voti Studente")
+            print("5. Esci")
+            scelta = input("Scegli un'opzione: ")
+
+            if scelta == "1":
+                nome = input("Inserisci il nome dello studente: ")
+                self.aula.inserisci_studente(nome)
+            elif scelta == "2":
+                nome = input("Inserisci il nome dello studente: ")
+                try:
+                    voto = float(input("Inserisci il voto: "))
+                    self.aula.aggiungi_voto_a_studente(nome, voto)
+                except ValueError:
+                    print("Errore: Il voto deve essere un numero.")
+            elif scelta == "3":
+                self.aula.stampa_studenti()
+            elif scelta == "4":
+                nome = input("Inserisci il nome dello studente: ")
+                media = self.aula.calcola_media_studente(nome)
+                if media is not None:
+                    print(f"La media dei voti di {nome} è: {media:.2f}")
+            elif scelta == "5":
+                print("Uscita dal programma.")
+                break
+            else:
+                print("Opzione non valida. Riprova.")
+
+
+# Avvio del programma
+menu = Menu()
+menu.mostra_menu()

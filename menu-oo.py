@@ -8,6 +8,10 @@ class Studente():
         return f'{self.nome} {self.voti}'
     def calcola_media(self):
         return sum(self.voti) / len(self.voti)
+    def __str__(self):
+        return f'{self.nome} {self.voti}'
+    def __eq__(self, other):
+        return self.nome == other.nome
 
 class Aula():
     def __init__(self):
@@ -45,7 +49,7 @@ class Menu():
                 s.aggiungi_voto(v)
             if op == '3':
                 for s in self.aula.lista():
-                    print(s.stampa())
+                    print(s)
             if op == '4':
                 nome = input('Inserisci nome: ')
                 s = self.aula.cerca(nome)
