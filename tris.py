@@ -67,3 +67,47 @@ class Tris:
                 if self.scacchiera[i][j] == ' ':
                     return True
         return False
+
+
+
+class Giocatore:
+    def __init__(self, id, scacchiera):
+        """
+        Costruttore che imposta l'id del giocatore ('X' o 'O') 
+        e lo collega ad un oggetto della classe Tris (scacchiera).
+        """
+        self.id = id
+        self.scacchiera = scacchiera
+
+    def gioca(self):
+        """
+        La funzione chiede al giocatore umano di inserire una mossa
+        e la invia alla scacchiera, assicurandosi che la mossa sia valida.
+        """
+        while True:
+            try:
+                # Chiede le coordinate della mossa (i, j)
+                i, j = map(int, input(f"Giocatore {self.id}, inserisci la mossa (riga,colonna): ").split(','))
+                
+                # Verifica che la mossa sia valida (le coordinate devono essere tra 0 e 2)
+                if 0 <= i < 3 and 0 <= j < 3:
+                    if self.scacchiera.metti_pedina(i, j, self.id):
+                        return  # La mossa è valida, esce dal ciclo
+                    else:
+                        print("La casella è già occupata, prova un'altra mossa.")
+                else:
+                    print("Le coordinate sono fuori dai limiti. Devono essere tra 0 e 2.")
+            except ValueError:
+                print("Input non valido. Inserisci le coordinate nel formato 'riga,colonna' (es. 0,1).")
+
+
+
+
+if __name__ == '__main__':
+    t = Tris()
+    t.metti_pedina(0,0,'X')
+    t.metti_pedina(1,0,'O')
+    t.metti_pedina(1,1,'X')
+    t.metti_pedina(1,1,'O')
+    t.metti_pedina(2,2,'X')
+    print(t.tris('X'))
