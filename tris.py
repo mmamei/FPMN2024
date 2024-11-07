@@ -123,6 +123,55 @@ class GiocatoreComputer:
                 return  # La mossa è stata eseguita, esce dal ciclo
 
 
+class GamePlay:
+    def __init__(self, giocatore1, giocatore2, scacchiera):
+        """
+        Inizializza la classe GamePlay con i due giocatori e la scacchiera.
+        """
+        self.giocatore1 = giocatore1
+        self.giocatore2 = giocatore2
+        self.scacchiera = scacchiera
+        self.turno = giocatore1  # Il primo turno sarà per giocatore1
+
+    def stampa_scacchiera(self):
+        """
+        Stampa la scacchiera attuale del gioco.
+        """
+        print("\nScacchiera:")
+        for i in range(3):
+            print(" | ".join(self.scacchiera.scacchiera[i]))
+            if i < 2:
+                print("-" * 5)
+        print()
+
+    def gioca(self):
+        """
+        Gestisce il ciclo del gioco: alterna i turni, verifica la vittoria o il pareggio.
+        """
+        while True:
+            # Stampa la scacchiera prima di ogni mossa
+            self.stampa_scacchiera()
+
+            # Il giocatore corrente fa la mossa
+            self.turno.gioca()
+
+            # Verifica se il giocatore corrente ha vinto
+            if self.scacchiera.tris(self.turno.id):
+                self.stampa_scacchiera()
+                print(f"Il giocatore {self.turno.id} ha vinto!")
+                break
+
+            # Verifica se la scacchiera è piena (pareggio)
+            if not self.scacchiera.ce_spazio():
+                self.stampa_scacchiera()
+                print("La partita è finita in pareggio!")
+                break
+
+            # Passa al prossimo giocatore
+            self.turno = self.giocatore1 if self.turno == self.giocatore2 else self.giocatore2
+
+
+
 if __name__ == '__main__':
     t = Tris()
     g1 = Giocatore('X',t)
