@@ -10,6 +10,8 @@ class Studente():
         return sum(self.voti) / len(self.voti)
     def __str__(self):
         return f'{self.nome} {self.voti}'
+    def __repr__(self):
+        return self.__str__()
     def __eq__(self, other):
         return self.nome == other.nome
 
@@ -57,6 +59,6 @@ class Menu():
             if op == '5':
                 break
 
-
-m = Menu()
-m.esegui()
+if __name__ == '__main__':
+    m = Menu()
+    m.esegui()

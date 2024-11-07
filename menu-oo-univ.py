@@ -7,9 +7,9 @@ class StudenteUniv(Studente):
         self.matricola = matricola
     1
     def __str__(self):
-        return f'{self.matricola} {super()}'
+        return f'{self.matricola} {super().__str__()}'
     
-    def calcola_media():
+    def calcola_media(self):
         return super().calcola_media() * 110 / 30
 
 
@@ -39,6 +39,7 @@ class MenuUniv(Menu):
                 break
 
 
+print('ciao')
 m = MenuUniv()
 m.esegui()
     
