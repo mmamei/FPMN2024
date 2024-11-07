@@ -141,7 +141,7 @@ class GamePlay:
         for i in range(3):
             print(" | ".join(self.scacchiera.scacchiera[i]))
             if i < 2:
-                print("-" * 5)
+                print("-" * 10)
         print()
 
     def gioca(self):
@@ -174,11 +174,7 @@ class GamePlay:
 
 if __name__ == '__main__':
     t = Tris()
-    g1 = Giocatore('X',t)
-    g2 = Giocatore('O',t)
-    g1.gioca()
-    g2.gioca()
-    g1.gioca()
-    g2.gioca()
-    g1.gioca()
-    print(t.tris('X'))
+    g1 = GiocatoreComputer('X',t)
+    g2 = GiocatoreComputer('O',t)
+    gameplay = GamePlay(g1,g2,t)
+    gameplay.gioca()
