@@ -88,26 +88,48 @@ class Giocatore:
             try:
                 # Chiede le coordinate della mossa (i, j)
                 i, j = map(int, input(f"Giocatore {self.id}, inserisci la mossa (riga,colonna): ").split(','))
-                
-                # Verifica che la mossa sia valida (le coordinate devono essere tra 0 e 2)
-                if 0 <= i < 3 and 0 <= j < 3:
-                    if self.scacchiera.metti_pedina(i, j, self.id):
-                        return  # La mossa è valida, esce dal ciclo
-                    else:
-                        print("La casella è già occupata, prova un'altra mossa.")
+                if self.scacchiera.metti_pedina(i, j, self.id):
+                    return
                 else:
-                    print("Le coordinate sono fuori dai limiti. Devono essere tra 0 e 2.")
+                    print('mossa non valida')
             except ValueError:
                 print("Input non valido. Inserisci le coordinate nel formato 'riga,colonna' (es. 0,1).")
 
 
+import random
+
+class GiocatoreComputer:
+    def __init__(self, id, scacchiera):
+        """
+        Costruttore che imposta l'id del giocatore ('X' o 'O') 
+        e lo collega ad un oggetto della classe Tris (scacchiera).
+        """
+        self.id = id
+        self.scacchiera = scacchiera
+
+    def gioca(self):
+        """
+        La funzione genera una mossa casuale per il computer e la invia alla scacchiera.
+        Il computer continua a generare mosse finché non trova una casella vuota.
+        """
+        while True:
+            # Genera due numeri casuali nell'intervallo [0, 2]
+            i = random.randint(0, 2)
+            j = random.randint(0, 2)
+            
+            # Verifica che la mossa sia valida (la casella deve essere vuota)
+            if self.scacchiera.metti_pedina(i, j, self.id):
+                #print(f"Il computer ({self.id}) ha messo la pedina in ({i},{j}).")
+                return  # La mossa è stata eseguita, esce dal ciclo
 
 
 if __name__ == '__main__':
     t = Tris()
-    t.metti_pedina(0,0,'X')
-    t.metti_pedina(1,0,'O')
-    t.metti_pedina(1,1,'X')
-    t.metti_pedina(1,1,'O')
-    t.metti_pedina(2,2,'X')
+    g1 = Giocatore('X',t)
+    g2 = Giocatore('O',t)
+    g1.gioca()
+    g2.gioca()
+    g1.gioca()
+    g2.gioca()
+    g1.gioca()
     print(t.tris('X'))
