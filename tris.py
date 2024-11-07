@@ -96,31 +96,6 @@ class Giocatore:
                 print("Input non valido. Inserisci le coordinate nel formato 'riga,colonna' (es. 0,1).")
 
 
-import random
-
-class GiocatoreComputer:
-    def __init__(self, id, scacchiera):
-        """
-        Costruttore che imposta l'id del giocatore ('X' o 'O') 
-        e lo collega ad un oggetto della classe Tris (scacchiera).
-        """
-        self.id = id
-        self.scacchiera = scacchiera
-
-    def gioca(self):
-        """
-        La funzione genera una mossa casuale per il computer e la invia alla scacchiera.
-        Il computer continua a generare mosse finché non trova una casella vuota.
-        """
-        while True:
-            # Genera due numeri casuali nell'intervallo [0, 2]
-            i = random.randint(0, 2)
-            j = random.randint(0, 2)
-            
-            # Verifica che la mossa sia valida (la casella deve essere vuota)
-            if self.scacchiera.metti_pedina(i, j, self.id):
-                #print(f"Il computer ({self.id}) ha messo la pedina in ({i},{j}).")
-                return  # La mossa è stata eseguita, esce dal ciclo
 
 
 class GamePlay:
@@ -174,7 +149,7 @@ class GamePlay:
 
 if __name__ == '__main__':
     t = Tris()
-    g1 = GiocatoreComputer('X',t)
-    g2 = GiocatoreComputer('O',t)
+    g1 = Giocatore('X',t)
+    g2 = Giocatore('O',t)
     gameplay = GamePlay(g1,g2,t)
     gameplay.gioca()
