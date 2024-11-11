@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Quick Start - Leaflet</title>
+	<meta charset="utf-8" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+</head>
+<body>
+
+<div id="mapid" style="width: 1200px; height: 800px;"></div>
+<script>
+
+	var map = L.map('mapid').setView({{center}}, 13);
+	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+	{{placemark}}
+
+</script>
+
+</body>
+</html>

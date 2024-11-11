@@ -1,15 +1,4 @@
-def wrap(f):
-    def newf(*pars):
-        print('decorazione')
-        f(*pars)
-    return newf
-
-#stampa = wrap(stampa)
-@wrap
-def stampa(nome, cognome):
-    print('ciao',nome,cognome)
-
-
-
-
-stampa('marco','mamei')
+lst = [1, 2, 3, 4, 5]
+result = [lst[i] - lst[-(i+1)] for i 
+in range(len(lst)//2)]
+print(result)

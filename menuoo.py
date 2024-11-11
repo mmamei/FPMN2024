@@ -36,14 +36,19 @@ class Menu():
         print("3. Stampa tutto")
         print("4. Calcola media voti studente")
         print("5. Esci")
+
+    def menu_crea_studente(self):
+        nome = input('Inserisci nome: ')
+        s = Studente(nome)
+        self.aula.aggiungi(s)
+
+
     def esegui(self):
         while(True):
             self.stampa()
             op = input('Inserisci operazione ')
             if op == '1':
-                nome = input('Inserisci nome: ')
-                s = Studente(nome)
-                self.aula.aggiungi(s)
+                self.menu_crea_studente()
             if op == '2':
                 nome = input('Inserisci nome: ')
                 s = self.aula.cerca(nome)
@@ -58,6 +63,7 @@ class Menu():
                 print(s.calcola_media())
             if op == '5':
                 break
+
 
 if __name__ == '__main__':
     m = Menu()
