@@ -23,7 +23,7 @@ class LinkedList():
         return cont
     def __getitem__(self,i):
         element = self.first
-        x = 0
+        x = 1
         while x < i:
             element = element.next
             x += 1
