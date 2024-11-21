@@ -19,7 +19,7 @@ class GiocatoreComputer(Giocatore):
 
 if __name__ == '__main__':
     t = Tris()
-    g1 = GiocatoreComputer('X',t)
+    g1 = Giocatore('X',t)
     g2 = GiocatoreComputer('O',t)
     game = GamePlay(g1,g2,t)
     game.gioca()
