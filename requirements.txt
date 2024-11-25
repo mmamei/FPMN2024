@@ -1,2 +1,4 @@
 guizero
 pillow
+pygame
+requests
