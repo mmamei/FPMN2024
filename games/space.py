@@ -6,16 +6,21 @@ from pygame import font
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 ADDENEMY = pygame.USEREVENT + 1
+ADDPOWERUP = pygame.USEREVENT + 2
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.surf = pygame.image.load('games/images/jet.png').convert()
-        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+        self.surf.set_colorkey((255, 255, 255))
         self.rect = self.surf.get_rect()
         self.rect.center = [10, SCREEN_HEIGHT/2]
         self.v = 1
         self.when_hit = -1
+        self.power = 0
+    
+    def powerup(self):
+        self.power = 100
 
     def update(self, pressed_keys):
         if pressed_keys[K_UP]:
@@ -46,9 +51,18 @@ class Player(pygame.sprite.Sprite):
             gameon = False
 
     def fire(self):
-        m = Missile(self.rect.right + 5, self.rect.bottom)
-        missiles.add(m)
-        all_sprites.add(m)
+        if self.power > 0:
+            self.power -= 1
+            m1 = Missile(self.rect.right + 5, self.rect.bottom)
+            m2 = Missile(self.rect.right + 5, self.rect.bottom - 10)
+            m3 = Missile(self.rect.right + 5, self.rect.bottom + 10)
+            for m in [m1,m2,m3]:
+                missiles.add(m)
+                all_sprites.add(m)
+        else:
+            m = Missile(self.rect.right + 5, self.rect.bottom)
+            missiles.add(m)
+            all_sprites.add(m)
 
     def hit(self):
         self.surf = pygame.image.load('games/images/boom.png').convert()
@@ -94,7 +108,20 @@ class Enemy(pygame.sprite.Sprite):
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.when_hit = pygame.time.get_ticks()
 
+class Powerup(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.surf = pygame.Surface((75, 25))
+        self.surf.fill((255, 0, 0))
+        self.rect = self.surf.get_rect(center=(820, random.randint(0, 600)))
+        self.speed = random.randint(1, 2)
 
+    def update(self):
+        self.rect.move_ip(-self.speed, 0)
+        if self.rect.right < 0:
+            self.kill()
+
+    
 
 num_enemy_killed = 0
 
@@ -109,12 +136,14 @@ gameon = False
 player = Player()
 missiles = pygame.sprite.Group()
 enemies = pygame.sprite.Group()
+powerups = pygame.sprite.Group()
 all_sprites = pygame.sprite.Group()
 all_sprites.add(player)
 
 
 
 pygame.time.set_timer(ADDENEMY, 1000)
+pygame.time.set_timer(ADDPOWERUP, 10000)
 
 # Our main loop!
 while running:
@@ -136,6 +165,10 @@ while running:
             new_enemy = Enemy()
             enemies.add(new_enemy)
             all_sprites.add(new_enemy)
+        elif gameon and event.type == ADDPOWERUP:
+            new_powerup = Powerup()
+            powerups.add(new_powerup)
+            all_sprites.add(new_powerup)
 
     if not gameon:
         num_enemy_killed = 0
@@ -145,7 +178,6 @@ while running:
         all_sprites.add(player)
         screen.fill([0, 0, 0])
         surf = font.Font(None,36).render('Premi 1 per iniziare...', True, [255,255,255])
-
         screen.blit(surf, (SCREEN_WIDTH/2-surf.get_width()/2, SCREEN_HEIGHT/2))
 
     if gameon:
@@ -159,8 +191,14 @@ while running:
             e.update()
         for m in missiles:
             m.update()
+        for p in powerups:
+            p.update()
         if pygame.sprite.spritecollideany(player, enemies):
             player.hit()
+        if pygame.sprite.spritecollideany(player, powerups):
+            player.powerup()
+            for p in powerups:
+                p.kill()
 
         collisions = pygame.sprite.groupcollide(missiles,enemies,True,False)
         for k,v in collisions.items():
