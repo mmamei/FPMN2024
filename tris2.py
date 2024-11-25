@@ -15,7 +15,7 @@ class GiocatoreComputer(Giocatore):
             # Verifica che la mossa sia valida (la casella deve essere vuota)
             if self.scacchiera.metti_pedina(i, j, self.id):
                 #print(f"Il computer ({self.id}) ha messo la pedina in ({i},{j}).")
-                return  # La mossa è stata eseguita, esce dal ciclo
+                return i,j  # La mossa è stata eseguita, esce dal ciclo
 
 if __name__ == '__main__':
     t = Tris()
