@@ -6,11 +6,13 @@ from pygame import font
 from player import Player
 from wall import Wall
 
+PLAYER_DX = 40
+PLAYER_DY = 40
+WALL_DX = 50
+WALL_DY = 50
+SCREEN_WIDTH = (3*10 + 1)*WALL_DX
+SCREEN_HEIGHT = (2*10 + 1)*WALL_DY
 
-SCREEN_WIDTH = 930
-SCREEN_HEIGHT = 700
-WALL_DX = 30
-WALL_DY = 30
 
 num_enemy_killed = 0
 
@@ -45,7 +47,7 @@ while running:
         screen.blit(surf, (SCREEN_WIDTH/2-surf.get_width()/2, SCREEN_HEIGHT/2))
         if maze == None:
             wall_sprites = pygame.sprite.Group()
-            player = Player(10, WALL_DY + 12, SCREEN_WIDTH, SCREEN_HEIGHT, wall_sprites)
+            player = Player(PLAYER_DX/2+1, WALL_DY + PLAYER_DY/2+1, SCREEN_WIDTH, SCREEN_HEIGHT, wall_sprites)
 
             maze = requests.post('http://www.delorie.com/game-room/mazes/genmaze.cgi',
                           data={'cols': '10', 'rows': '10', 'type': 'text'})
