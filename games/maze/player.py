@@ -1,8 +1,9 @@
 import pygame
 from pygame.locals import *
+from constants import *
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, start_x, start_y, SCREEN_WIDTH, SCREEN_HEIGHT, wall_sprites):
+    def __init__(self, start_x, start_y, wall_sprites):
         super().__init__()
         self.direction = 90
 
@@ -13,8 +14,6 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect()
         self.rect.center = [start_x, start_y]
         self.v = 3
-        self.SCREEN_WIDTH = SCREEN_WIDTH
-        self.SCREEN_HEIGHT = SCREEN_HEIGHT
         self.wall_sprites = wall_sprites
         
 
@@ -41,12 +40,12 @@ class Player(pygame.sprite.Sprite):
         # Keep player on the screen
         if self.rect.left < 0:
             self.rect.left = 0
-        elif self.rect.right > self.SCREEN_WIDTH:
-            self.rect.right = self.SCREEN_WIDTH
+        elif self.rect.right > SCREEN_WIDTH:
+            self.rect.right = SCREEN_WIDTH
         if self.rect.top <= 0:
             self.rect.top = 0
-        elif self.rect.bottom >= self.SCREEN_HEIGHT:
-            self.rect.bottom = self.SCREEN_HEIGHT
+        elif self.rect.bottom >= SCREEN_HEIGHT:
+            self.rect.bottom = SCREEN_HEIGHT
 
         if pygame.sprite.spritecollideany(self,self.wall_sprites):
             self.rect.move_ip(-dx,-dy)
