@@ -1,0 +1,27 @@
+from requests import get
+url = 'https://nominatim.openstreetmap.org/search.php?q=restaurants&viewbox=10.784,45.158,10.799,45.165&bounded=1&limit=1000&format=jsonv2'
+headers = {
+    'User-Agent': 'My User Agent 1.0',
+    'From': 'marco.mamei@gmail.com'
+}
+r = get(url, headers=headers)
+print(r.json())
+
+Scaricare i dati dei ristoranti di Mantova in un file json.
+Creare un chatbot a cui posso condividere la posizione e il chatbot 
+mi dice i ristoranti nelle vicinanze.
+Cliccando su un ristroante apre google map per la navigazione
+
+-------------------------
+
+Foto recall bot. Posso mandargli una foto e lui salva foto, 
+giorno/ora ed eventualmente un testo.
+Quindi posso fare delle interrogazioni per intervallo di tempo
+lui mi dice quali foto sono presenti e le posso vedere.
+
+from datetime import datetime
+s = datetime.strptime('09-19-2022 08:00:00', '%m-%d-%Y %H:%M:%S')
+e = datetime.strptime('09-19-2022 18:00:00', '%m-%d-%Y %H:%M:%S')
+d = datetime.strptime('09-19-2022 10:00:00', '%m-%d-%Y %H:%M:%S')
+if s < d < e:
+    print('ciao')

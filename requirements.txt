@@ -2,3 +2,4 @@ guizero
 pillow
 pygame
 requests
+python-telegram-bot

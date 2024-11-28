@@ -1,0 +1,5 @@
+from telegram import Bot
+from secret import key
+import asyncio
+bot = Bot(token=key)
+asyncio.run(bot.send_message(chat_id='816504302', text=f"ciao"))

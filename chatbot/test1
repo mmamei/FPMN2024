@@ -1,0 +1,21 @@
+from telegram import Update
+from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters
+from secret import key
+import asyncio
+
+async def test():
+    await asyncio.sleep(10)
+    print('done')
+
+async def hello(update, context):
+    #await asyncio.gather(test(),update.message.reply_text(f'Hello {update.effective_user.first_name}'))
+    await update.message.reply_text(f'Hello {update.effective_user.first_name}')
+
+async def echo(update, context):
+    await update.message.reply_text(update.message.text)
+
+print('starting')
+app = ApplicationBuilder().token(key).build()
+app.add_handler(CommandHandler("hello", hello))
+app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
+app.run_polling()

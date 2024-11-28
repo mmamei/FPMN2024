@@ -3,68 +3,8 @@ import pygame
 from pygame.locals import *
 import random
 from pygame import font
-
-class Player(pygame.sprite.Sprite):
-    def __init__(self):
-        super().__init__()
-        self.surf = pygame.Surface((20,20))
-        self.surf.fill([255,255,255])
-        self.rect = self.surf.get_rect()
-        self.rect.center = [10, WALL_DY + 12]
-        self.v = 3
-
-    def update(self, pressed_keys):
-
-        dx = 0
-        dy = 0
-
-        if pressed_keys[K_UP]:
-            dy = -self.v
-        if pressed_keys[K_DOWN]:
-            dy = self.v
-        if pressed_keys[K_LEFT]:
-           dx  = -self.v
-        if pressed_keys[K_RIGHT]:
-           dx = self.v
-        self.rect.move_ip(dx,dy)
-
-        # Keep player on the screen
-        if self.rect.left < 0:
-            self.rect.left = 0
-        elif self.rect.right > SCREEN_WIDTH:
-            self.rect.right = SCREEN_WIDTH
-        if self.rect.top <= 0:
-            self.rect.top = 0
-        elif self.rect.bottom >= SCREEN_HEIGHT:
-            self.rect.bottom = SCREEN_HEIGHT
-
-        if pygame.sprite.spritecollideany(self,wall_sprites):
-            self.rect.move_ip(-dx,-dy)
-
-        if self.rect.right > 910 and self.rect.top > 560:
-            global gameon
-            gameon = False
-            global maze
-            maze = None
-            self.kill()
-
-        print(self.rect.right,self.rect.top)
-
-
-
-
-
-class Wall(pygame.sprite.Sprite):
-    def __init__(self,x,y,dx,dy):
-        super().__init__()
-        self.surf = pygame.Surface((dx,dy))
-        self.surf.fill([255,0,0])
-        self.rect = self.surf.get_rect()
-        self.rect.left = x
-        self.rect.top = y
-
-
-
+from player import Player
+from wall import Wall
 
 
 SCREEN_WIDTH = 930
@@ -83,8 +23,7 @@ maze = None
 running = True
 gameon = False
 
-player = Player()
-wall_sprites = pygame.sprite.Group()
+
 
 # Our main loop!
 while running:
@@ -105,8 +44,9 @@ while running:
         surf = font.Font(None,36).render('Premi 1 per iniziare...', True, [255,255,255])
         screen.blit(surf, (SCREEN_WIDTH/2-surf.get_width()/2, SCREEN_HEIGHT/2))
         if maze == None:
-            player = Player()
             wall_sprites = pygame.sprite.Group()
+            player = Player(10, WALL_DY + 12, SCREEN_WIDTH, SCREEN_HEIGHT, wall_sprites)
+
             maze = requests.post('http://www.delorie.com/game-room/mazes/genmaze.cgi',
                           data={'cols': '10', 'rows': '10', 'type': 'text'})
 

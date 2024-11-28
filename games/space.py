@@ -20,7 +20,7 @@ class Player(pygame.sprite.Sprite):
         self.power = 0
     
     def powerup(self):
-        self.power = 100
+        self.power = 10
 
     def update(self, pressed_keys):
         if pressed_keys[K_UP]:
@@ -53,10 +53,9 @@ class Player(pygame.sprite.Sprite):
     def fire(self):
         if self.power > 0:
             self.power -= 1
-            m1 = Missile(self.rect.right + 5, self.rect.bottom)
-            m2 = Missile(self.rect.right + 5, self.rect.bottom - 10)
-            m3 = Missile(self.rect.right + 5, self.rect.bottom + 10)
-            for m in [m1,m2,m3]:
+           
+            for dy in [-20, -10, 0]:
+                m = Missile(self.rect.right + 5, self.rect.bottom + dy)
                 missiles.add(m)
                 all_sprites.add(m)
         else:
