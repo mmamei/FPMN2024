@@ -52,6 +52,8 @@ while state['running']:
         player.update(pygame.key.get_pressed())
         for m in missiles_sprites:
             m.update()
+        for e in enemies:
+            e.update()
         for x in all_sprites:
             screen.blit(x.surf, x.rect)
     pygame.display.flip()

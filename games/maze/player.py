@@ -21,10 +21,8 @@ class Player(pygame.sprite.Sprite):
         
 
     def update(self, pressed_keys):
-
         dx = 0
         dy = 0
-
         if pressed_keys[K_UP]:
             dy = -self.v
             self.direction = 180
