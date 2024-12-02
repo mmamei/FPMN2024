@@ -1,9 +1,10 @@
 import pygame
 from pygame.locals import *
 from constants import *
+from missile import Missile
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, start_x, start_y, wall_sprites):
+    def __init__(self, start_x, start_y, all_sprites, missiles_sprites, wall_sprites):
         super().__init__()
         self.direction = 90
 
@@ -14,6 +15,8 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect()
         self.rect.center = [start_x, start_y]
         self.v = 3
+        self.all_sprites = all_sprites
+        self.missiles_sprites = missiles_sprites
         self.wall_sprites = wall_sprites
         
 
@@ -56,5 +59,9 @@ class Player(pygame.sprite.Sprite):
             global maze
             maze = None
             self.kill()
+    
+    def fire(self):
+        m = Missile(self.rect.centerx, self.rect.centery, self.direction, self.wall_sprites)
+        self.missiles_sprites.add(m)
+        self.all_sprites.add(m)
 
-        print(self.rect.right,self.rect.top)

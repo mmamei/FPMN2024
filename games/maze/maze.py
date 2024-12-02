@@ -22,20 +22,32 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 # Our main loop!
 while state['running']:
-    check_main_events(state)
+    
+    events  = pygame.event.get()
+    check_main_events(events, state)
+
+    for event in events:
+        if event.type == KEYDOWN and event.key == K_SPACE:
+            player.fire()
+    
+
     screen.fill([0, 0, 0])
     if not state['gameon']:
         surf = font.Font(None,36).render('Premi 1 per iniziare...', True, [255,255,255])
         screen.blit(surf, (SCREEN_WIDTH/2-surf.get_width()/2, SCREEN_HEIGHT/2))
         if state['maze'] == False:
             state['maze'] = True
+            all_sprites = pygame.sprite.Group()
+            missiles_sprites = pygame.sprite.Group()
             wall_sprites = generate_maze(N_ROWS,N_COLS)
-            player = Player(PLAYER_DX/2+1, WALL_DY + PLAYER_DY/2+1, wall_sprites)
+            player = Player(PLAYER_DX/2+1, WALL_DY + PLAYER_DY/2+1, all_sprites, missiles_sprites, wall_sprites)
+            all_sprites.add(wall_sprites,player)
     if state['gameon']:
         player.update(pygame.key.get_pressed())
-        screen.blit(player.surf,player.rect)
-        for s in wall_sprites:
-            screen.blit(s.surf, s.rect)
+        for m in missiles_sprites:
+            m.update()
+        for x in all_sprites:
+            screen.blit(x.surf, x.rect)
     pygame.display.flip()
     clock.tick(200)
 

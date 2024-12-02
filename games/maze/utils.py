@@ -21,10 +21,10 @@ def generate_maze(n_row, n_cols):
     return wall_sprites
 
 
-def check_main_events(state):
+def check_main_events(events, state):
     global running,gameon
      # for loop through the event queue
-    for event in pygame.event.get():
+    for event in events:
     # Check for KEYDOWN event; KEYDOWN is a constant defined in pygame.locals, which we imported earlier
         if event.type == KEYDOWN:
             # If the Esc key has been pressed set running to false to exit the main loop
