@@ -4,6 +4,7 @@ from pygame.locals import *
 import random
 from pygame import font
 from player import Player
+from enemy import Enemy
 from wall import Wall
 from constants import *
 from utils import generate_maze, check_main_events
@@ -19,7 +20,7 @@ state = {
 pygame.init()
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-
+pygame.time.set_timer(ADDENEMY, 5000)
 # Our main loop!
 while state['running']:
     
@@ -29,6 +30,10 @@ while state['running']:
     for event in events:
         if event.type == KEYDOWN and event.key == K_SPACE:
             player.fire()
+        if state['gameon'] and event.type == ADDENEMY:
+            new_enemy = Enemy(ENEMY_DX,ENEMY_DY, all_sprites, missiles_sprites, wall_sprites)
+            enemies.add(new_enemy)
+            all_sprites.add(new_enemy)
     
 
     screen.fill([0, 0, 0])
@@ -37,6 +42,7 @@ while state['running']:
         screen.blit(surf, (SCREEN_WIDTH/2-surf.get_width()/2, SCREEN_HEIGHT/2))
         if state['maze'] == False:
             state['maze'] = True
+            enemies = pygame.sprite.Group()
             all_sprites = pygame.sprite.Group()
             missiles_sprites = pygame.sprite.Group()
             wall_sprites = generate_maze(N_ROWS,N_COLS)
