@@ -51,12 +51,8 @@ class Player(pygame.sprite.Sprite):
         if pygame.sprite.spritecollideany(self,self.wall_sprites):
             self.rect.move_ip(-dx,-dy)
 
-        if self.rect.right > 910 and self.rect.top > 560:
-            global gameon
-            gameon = False
-            global maze
-            maze = None
-            self.kill()
+        #if self.rect.right > 910 and self.rect.top > 560:
+        #    self.kill()
     
     def fire(self):
         m = Missile(self.rect.centerx, self.rect.centery, self.direction, self.wall_sprites)

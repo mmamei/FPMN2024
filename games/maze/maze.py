@@ -54,6 +54,13 @@ while state['running']:
             m.update()
         for e in enemies:
             e.update()
+
+
+        collisions = pygame.sprite.groupcollide(missiles_sprites,enemies,True,False)
+        for k,v in collisions.items():
+            for e in v:
+                e.kill()
+
         for x in all_sprites:
             screen.blit(x.surf, x.rect)
     pygame.display.flip()
