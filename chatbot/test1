@@ -12,6 +12,7 @@ async def hello(update, context):
     await update.message.reply_text(f'Hello {update.effective_user.first_name}')
 
 async def echo(update, context):
+    print(update.message.chat.id)
     await update.message.reply_text(update.message.text)
 
 print('starting')
